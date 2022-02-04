@@ -7,12 +7,12 @@ from networktables import NetworkTables
 
 class MyRobot(wpilib.TimedRobot):
     def robotInit(self):
+        NetworkTables.initialize(server="127.0.0.1")
         self.m_motor = CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless)
         self.m_motor.restoreFactoryDefaults()
         self.m_stick = wpilib.XboxController(0)
         self.m_encoder = self.m_motor.getEncoder()
         self.sd = NetworkTables.getTable("LiveWindow")
-        NetworkTables.initialize(server="127.0.0.1")
 
     def teleopPeriodic(self):
         self.m_motor.set(self.m_stick.getRawAxis(2))
